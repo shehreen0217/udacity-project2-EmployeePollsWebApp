@@ -22,7 +22,6 @@ const Login = () => {
 
   useEffect(() => {
     const loginHandler = async () => {
-      console.log("username from component: ", user);
       dispatch(login(user, password));
 
       setReload(false);

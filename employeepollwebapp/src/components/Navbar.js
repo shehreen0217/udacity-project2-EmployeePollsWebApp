@@ -10,7 +10,6 @@ import { Stack } from "@mui/material";
 const Navbar = () => {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const isUser = useSelector((state) => state.user.user);
-  console.log(isUser);
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(authActions.logout());
@@ -31,12 +30,26 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink activeClassName={classes.active} to="/question">
+              <NavLink activeClassName={classes.active} to="/add">
                 New
               </NavLink>
             </li>
-            <span>
-              <li style={styles.logout}>
+            <span style={styles.logout}>
+              <li>
+                <Stack direction="row" spacing={2}>
+                  <Link style={styles.links} to="/profile">
+                    <Avatar
+                      className="avatar"
+                      alt="Current User avatar"
+                      src={isUser[0].avatarURL}
+                      sx={{ width: 50, height: 50 }}
+                    />
+                  </Link>
+
+                  <h4 style={styles.username}>{isUser[0].name}</h4>
+                </Stack>
+              </li>
+              <li>
                 <NavLink
                   activeClassName={classes.active}
                   to="/"
@@ -44,19 +57,6 @@ const Navbar = () => {
                 >
                   logout
                 </NavLink>
-              </li>
-              <li>
-                <Stack>
-                  <Link to="/profile">
-                    <Avatar
-                      className="avatar"
-                      alt="login avatar"
-                      src={isUser[0].avatarURL}
-                      sx={{ width: 50, height: 50 }}
-                    />
-                    {isUser[0].name}
-                  </Link>
-                </Stack>
               </li>
             </span>
           </ul>
@@ -72,6 +72,15 @@ const styles = {
   },
   icon: {
     padding: "0px",
+  },
+  links: {
+    marginTop: "-23px",
+    marginLeft: "-5px",
+  },
+  username: {
+    marginTop: "18px",
+    marginLeft: "-13px",
+    marginRight: "10px",
   },
 };
 

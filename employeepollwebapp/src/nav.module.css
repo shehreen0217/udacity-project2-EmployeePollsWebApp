@@ -26,9 +26,10 @@
   
   li:last-child{
     border-right: none;
-    float: right;
+  
   
   }
+
  
   
   li a {
@@ -37,7 +38,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    margin: 0;
+   
    
   }
   
