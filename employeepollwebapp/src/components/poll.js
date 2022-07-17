@@ -23,7 +23,7 @@ const Poll = (props) => {
       <p style={styles.time}>{formatDate(props.question.timestamp)}</p>
       <Link to={route}>
         <Button style={styles.btn} variant="outlined" onClick={clickHandler}>
-          Poll!
+          {props.value}
         </Button>
       </Link>
     </div>

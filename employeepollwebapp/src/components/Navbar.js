@@ -42,7 +42,7 @@ const Navbar = () => {
                       className="avatar"
                       alt="Current User avatar"
                       src={isUser[0].avatarURL}
-                      sx={{ width: 50, height: 50 }}
+                      sx={{ width: 45, height: 45 }}
                     />
                   </Link>
 

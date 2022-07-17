@@ -32,19 +32,19 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div>
-        <h2> New Questions</h2>
+      <h2 style={styles.heading}> New Questions</h2>
+      <div style={styles.div}>
         {initialQuestions &&
           unanswered.map((question) => {
-            return <Poll key={question.id} question={question} />;
+            return <Poll key={question.id} question={question} value="Poll" />;
           })}
       </div>
-      <div>
-        <h2> Done</h2>
-
+      <br></br>
+      <h2 style={styles.heading}> Answered</h2>
+      <div style={styles.div}>
         {initialQuestions &&
           answered.map((question) => {
-            return <Poll key={question.id} question={question} />;
+            return <Poll key={question.id} question={question} value="View" />;
           })}
       </div>
     </div>
@@ -52,12 +52,10 @@ const Dashboard = () => {
 };
 
 const styles = {
-  poll: {
-    borderStyle: "inset",
-    padding: "5px",
-    borderRadius: "8px",
-    margin: "15px",
-    width: "225px",
+  div: {
+    display: "flex",
+  },
+  heading: {
     textAlign: "center",
   },
 };

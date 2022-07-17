@@ -15,6 +15,7 @@ const QuestionSlice = createSlice({
     },
     addNewQuestion(state, action) {
       state.Questions = { ...(state.Questions + action.payload.newQuestion) };
+      console.log(state.Questions);
     },
     setAnsweredAndUnanswered(state, action) {
       state.Answered = action.payload.Answered;
