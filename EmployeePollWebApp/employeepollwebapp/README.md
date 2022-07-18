@@ -4,7 +4,7 @@ This project contains a web app that lets an employee create polls for coworkers
 
 ## To get started:
 
-- locate project at .github/employeepollwebapp
+- locate project at EmployeePollWebApp/employeepollwebapp
 - To install project: `npm install`
 - To launch application: `npm start`
 
