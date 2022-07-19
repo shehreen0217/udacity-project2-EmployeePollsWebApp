@@ -30,6 +30,7 @@ const CreatePoll = () => {
 
   const clickHandler = () => {
     setReload(true);
+    redirect && <Redirect to="/" />;
   };
 
   return (
@@ -69,38 +70,15 @@ const CreatePoll = () => {
           }}
         />
       </Box>
-      {optionOne && optionTwo && (
-        <Button
-          style={styles.button}
-          variant="contained"
-          onClick={clickHandler}
-        >
-          Post
-        </Button>
-      )}
-      {!optionOne ||
-        (!optionTwo && (
-          <Button
-            disabled
-            style={styles.button}
-            variant="contained"
-            onClick={clickHandler}
-          >
-            Post
-          </Button>
-        ))}
-      {!optionOne && !optionTwo && (
-        <Button
-          disabled
-          style={styles.button}
-          variant="contained"
-          onClick={clickHandler}
-        >
-          Post
-        </Button>
-      )}
 
-      {redirect && <Redirect to="/" />}
+      <Button
+        disabled={!optionOne || !optionTwo}
+        style={styles.button}
+        variant="contained"
+        onClick={clickHandler}
+      >
+        Post
+      </Button>
     </div>
   );
 };

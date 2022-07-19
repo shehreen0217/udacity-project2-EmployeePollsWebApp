@@ -13,6 +13,7 @@ const Navbar = () => {
   const logoutHandler = () => {
     dispatch(authActions.logout());
   };
+  console.log("nav is rerending");
   return (
     <header className={classes.header}>
       {isAuth && (

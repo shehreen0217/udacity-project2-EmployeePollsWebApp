@@ -2,11 +2,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Page404 from "./Page404";
 import Button from "@mui/material/Button";
 import { PollDetail } from "../Store/Actions/question";
+
 const PollDetails = () => {
   const { questionid } = useParams();
   const dispatch = useDispatch();
@@ -23,15 +24,6 @@ const PollDetails = () => {
   let Q = Ques.find((e) => {
     return e.id === questionid;
   });
-
-  const totalVotes =
-    initialQuestions[questionid].optionOne.votes.length +
-    initialQuestions[questionid].optionTwo.votes.length;
-  const b2 = initialQuestions[questionid].optionTwo.votes.length;
-  const b1 = initialQuestions[questionid].optionOne.votes.length;
-
-  let first = Math.round((b1 / totalVotes) * 100);
-  let second = Math.round((b2 / totalVotes) * 100);
 
   const currentQuestion = Ques.filter((e) => e.id === questionid);
   const allUsers = useSelector((state) => state.user.allUsers);
@@ -52,12 +44,25 @@ const PollDetails = () => {
 
   const currentUser = useSelector((state) => state.user.user);
 
-  const userOption1 = initialQuestions[questionid].optionOne.votes.find(
-    (e) => e === currentUser[0].id
-  );
-  const userOption2 = initialQuestions[questionid].optionTwo.votes.find(
-    (e) => e === currentUser[0].id
-  );
+  let first, second, userOption1, userOption2;
+
+  if (initialQuestions[questionid] !== undefined) {
+    const totalVotes =
+      initialQuestions[questionid].optionOne.votes.length +
+      initialQuestions[questionid].optionTwo.votes.length;
+    const b2 = initialQuestions[questionid].optionTwo.votes.length;
+    const b1 = initialQuestions[questionid].optionOne.votes.length;
+
+    first = Math.round((b1 / totalVotes) * 100);
+    second = Math.round((b2 / totalVotes) * 100);
+
+    userOption1 = initialQuestions[questionid].optionOne.votes.find(
+      (e) => e === currentUser[0].id
+    );
+    userOption2 = initialQuestions[questionid].optionTwo.votes.find(
+      (e) => e === currentUser[0].id
+    );
+  }
 
   const clickHandlerOne = () => {
     setClick(true);
@@ -95,6 +100,11 @@ const PollDetails = () => {
 
   return (
     <div>
+      {initialQuestions[questionid] === undefined && (
+        <>
+          <Page404></Page404>
+        </>
+      )}
       {userQuestion[0] !== undefined && (
         <div>
           <h3 style={styles.text}>Poll by {currentQuestion[0].author}</h3>
@@ -181,12 +191,6 @@ const PollDetails = () => {
             </span>
           )}
         </div>
-      )}
-      {userQuestion[0] === undefined && (
-        <>
-          <Redirect to="/login" />
-          <Page404></Page404>
-        </>
       )}
     </div>
   );

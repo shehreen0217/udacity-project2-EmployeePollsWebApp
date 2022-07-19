@@ -37,7 +37,11 @@ const LeaderBoard = () => {
     return allUsers[key];
   });
   users.sort((a, b) => {
-    return Object.keys(b.answers).length - Object.keys(a.answers).length;
+    return (
+      Object.keys(b.answers).length +
+      Object.keys(b.questions).length -
+      (Object.keys(a.answers).length + Object.keys(a.questions).length)
+    );
   });
 
   useEffect(() => {}, [allUsers]);
@@ -67,7 +71,7 @@ const LeaderBoard = () => {
                       <>
                         <Avatar
                           alt="Current User avatar"
-                          src={u.avatarURL}
+                          src={u.avatarURL ? u.avatarURL : null}
                           sx={{ width: 50, height: 50 }}
                         />
                         <h3 style={styles.name}>{u.name}</h3>

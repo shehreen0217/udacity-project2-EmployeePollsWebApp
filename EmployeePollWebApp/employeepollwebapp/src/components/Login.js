@@ -3,58 +3,50 @@ import { useSelector, useDispatch } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import loginAvatar from "../avatars/loginavatar.jpg";
 import "../index.css";
-import Stack from "@mui/material/Stack";
+// import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
-import { _getUsers } from "../_DATA";
-import { Link, Redirect } from "react-router-dom";
-import { login } from "../Store/Actions/login";
-import Alert from "@mui/material/Alert";
-import Collapse from "@mui/material/Collapse";
+import { Redirect } from "react-router-dom";
+import { login, settingUsers } from "../Store/Actions/login";
+// import Alert from "@mui/material/Alert";
+// import Collapse from "@mui/material/Collapse";
 
 const Login = () => {
-  const users = ["sarahedo", "tylermcginnis", "mtsamis", "zoshikanlu"];
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth.isAuthenticated);
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-  const [invalidPass, setInvalidPass] = useState(false);
-  const [open, setOpen] = useState(true);
-  const [reload, setReload] = useState(false);
 
   useEffect(() => {
-    const getuser = async () => {
-      const allusers = await _getUsers();
+    dispatch(settingUsers());
+  }, [dispatch]);
 
-      const Cuser = Object.keys(allusers).map((key) => {
-        return allusers[key];
-      });
-      let currentUser = Cuser.filter((e) => e.id === user);
+  const auth = useSelector((state) => state.auth.isAuthenticated);
+  const allusers = useSelector((state) => state.user.allUsers);
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  // const [open, setOpen] = useState(true);
 
-      if (user && password) {
-        if (currentUser[0].password !== password) {
-          setInvalidPass(true);
-        }
-      }
-    };
-    getuser();
-    const loginHandler = async () => {
-      dispatch(login(user, password));
+  if (auth) {
+    console.log("in redirect if");
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get("redirectTo");
+    return <Redirect to={redirectUrl ? redirectUrl : "/"} />;
+  }
 
-      setReload(false);
-    };
-    loginHandler();
-  }, [reload, dispatch]);
+  console.log("login is gone mad");
+  const Cuser = Object.keys(allusers).map((key) => {
+    return allusers[key];
+  });
+  let allUsers = Cuser.map((e) => e.id);
 
   const clickHandler = () => {
-    setReload(true);
+    dispatch(login(user, password));
+    // setReload(true);
   };
 
   return (
     !auth && (
       <div className="Login">
-        <Stack spacing={2}>
+        <span>
           <Avatar
             className="avatar"
             alt="login avatar"
@@ -71,7 +63,7 @@ const Login = () => {
               }}
               disablePortal
               id="combo-box-demo"
-              options={users}
+              options={allUsers}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} label="User" />}
             />
@@ -87,12 +79,27 @@ const Login = () => {
               sx={{ width: 300 }}
             />
           </form>
-          <Link to="/">
-            {user && password && (
+
+          {user && password && (
+            <Button
+              alt="submit"
+              aria-label="submit"
+              data-testid="submit-btn"
+              sx={{
+                mt: 1, // margin top
+              }}
+              onClick={clickHandler}
+            >
+              Log in
+            </Button>
+          )}
+          {!user ||
+            (!password && (
               <Button
                 alt="submit"
                 aria-label="submit"
                 data-testid="submit-btn"
+                disabled
                 sx={{
                   mt: 1, // margin top
                 }}
@@ -100,33 +107,17 @@ const Login = () => {
               >
                 Log in
               </Button>
-            )}
-            {!user ||
-              (!password && (
-                <Button
-                  alt="submit"
-                  aria-label="submit"
-                  data-testid="submit-btn"
-                  disabled
-                  sx={{
-                    mt: 1, // margin top
-                  }}
-                  onClick={clickHandler}
-                >
-                  Log in
-                </Button>
-              ))}
-          </Link>
+            ))}
 
-          {invalidPass && (
+          {/* {invalidPass && (
             <Collapse in={open}>
               <Alert onClose={() => setOpen(false)} severity="error">
                 Invalid Password!
               </Alert>
               <Redirect to="/login" />
             </Collapse>
-          )}
-        </Stack>
+          )} */}
+        </span>
       </div>
     )
   );

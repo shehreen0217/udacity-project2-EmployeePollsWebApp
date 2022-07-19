@@ -22,6 +22,9 @@ const authSlice = createSlice({
       state.id = "";
       state.password = "";
     },
+    updateLocation(state, action) {
+      state.location = action.payload.location;
+    },
   },
 });
 

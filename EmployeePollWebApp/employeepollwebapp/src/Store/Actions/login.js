@@ -20,7 +20,6 @@ export const login = (id = "", password = "") => {
           );
           dispatch(userActions.setUser({ user: currentUser }));
           dispatch(QuestionsActions.setQuestions({ questions: questions }));
-          dispatch(userActions.setAllUsers({ allUsers: users }));
         } else {
           console.log("incorrect password!");
         }
@@ -28,5 +27,12 @@ export const login = (id = "", password = "") => {
         console.log("incorrect userid");
       }
     }
+  };
+};
+
+export const settingUsers = () => {
+  return async (dispatch) => {
+    const users = await _getUsers();
+    dispatch(userActions.setAllUsers({ allUsers: users }));
   };
 };

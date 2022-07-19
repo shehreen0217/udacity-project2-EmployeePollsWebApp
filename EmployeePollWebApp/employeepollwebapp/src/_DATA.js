@@ -27,8 +27,7 @@ let users = {
     id: "mtsamis",
     password: "xyz123",
     name: "Mike Tsamis",
-    avatarURL:
-      "https://pixabay.com/get/g76466b98ffdd33fbea32a150411dd9de78a88502ecd5fe1953073869b821aad9e322d1fb395cf4370ff83cbe1cdf1a455c74d81146fc0461c83da4a82dc2fb7cf99c6f95f6c137a042e2faa6400a34d9_1280.png",
+    avatarURL: null,
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
       vthrdm985a262al8qx3do: "optionTwo",
@@ -40,8 +39,7 @@ let users = {
     id: "zoshikanlu",
     password: "pass246",
     name: "Zenobia Oshikanlu",
-    avatarURL:
-      "https://pixabay.com/get/gfe23a9e5b1d8018c97f88d73ca710100eece87b8fb1af2dc94518ae29cd6a453d8aebdfca770e6b5c490f839db45aff7ea646ba4c0cdd162d5b361bf7748c8c0632590899e683d7e6993f9b8558b8019_1280.png",
+    avatarURL: null,
     answers: {
       xj352vofupe1dqz9emx13r: "optionOne",
     },
